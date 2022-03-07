@@ -7,8 +7,8 @@ export class Audio {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne( type => Department, department => department.audio ) department: Department; 
-
+    @ManyToOne( type => Department, department => department.audio )
+    department: Department; 
 
     @Column( {
         type: "varchar",

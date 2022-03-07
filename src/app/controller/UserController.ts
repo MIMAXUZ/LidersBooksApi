@@ -3,6 +3,7 @@ import { getConnection } from "typeorm";
 
 import { User } from "./../../entity/User";
 import { validationResult } from "express-validator";
+import { generateToken } from "../utils/Index";
 
 //import { SentMessageInfo } from "nodemailer/lib/sendmail-transport";
 
@@ -53,10 +54,14 @@ class UserController {
           await userRep
           .save(user)
               .then((obj: User) => {
+                 
+                  const token = generateToken( user );
+                  
                   res.status( 200 ).json( {
                       status: "Success",
                       message: "User registered  successfully",
-                      data: obj
+                      data: obj,
+                      token: token
                   } );
                   //res.status(200).json(obj);
               })
