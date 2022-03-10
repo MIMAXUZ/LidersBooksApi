@@ -2,11 +2,12 @@ import jwt from "jsonwebtoken";
 import { reduce } from "lodash";
 
 interface ILoginData {
-    email: string;
+    phone: string;
     password: string;
 }
 
 export default (user: ILoginData) => {
+    
     const token = jwt.sign(
         {
             data: reduce(

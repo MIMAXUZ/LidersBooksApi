@@ -50,12 +50,21 @@ class UserController {
         } else {
           const userRep = getConnection().getRepository( User );
           const user = userRep.create( postData );
-        
+
           await userRep
           .save(user)
-              .then((obj: User) => {
-                 
-                  const token = generateToken( user );
+              .then( async (obj: User) => {
+
+                  let userData = await userRep
+                      .createQueryBuilder( "user" )
+                      .addSelect( 'user.role' )
+                      .addSelect( 'user.password' )
+                      .where( "user.phone = :phone", { phone: obj.phone } )
+                      .getOne()
+                  console.log( userData );
+                    
+
+                  const token =  generateToken( userData );
                   
                   res.status( 200 ).json( {
                       status: "Success",

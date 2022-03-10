@@ -50,6 +50,7 @@ class AuthController {
                     // look at on .env
 
                     const token = generateToken( user );
+                    
                     //Send the jwt in the response
                     res.status( 201 ).json( {
                         status: "success",
